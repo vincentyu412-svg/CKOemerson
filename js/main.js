@@ -491,7 +491,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         source: window.location.pathname
       };
 
-      fetch('https://services.leadconnectorhq.com/hooks/QU0KfW1QodK79UH6fB31/webhook-trigger/wRUCSolpWZIqgTKyMX0G', {
+      fetch('https://services.leadconnectorhq.com/hooks/XjS2bshPx1fcIiiPMabV/webhook-trigger/CuNPl0xlyKy7xSzLqeY2', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         mode: 'cors',
