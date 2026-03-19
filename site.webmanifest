@@ -1,14 +1,14 @@
 {
   "name": "CKO Kickboxing Emerson",
-  "short_name": "CFPL",
+  "short_name": "CKO Emerson",
   "icons": [
     {
-      "src": "images/android-chrome-192x192.webp",
+      "src": "images/android-chrome-192x192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "images/android-chrome-512x512.webp",
+      "src": "images/android-chrome-512x512.png",
       "sizes": "512x512",
       "type": "image/png"
     }
