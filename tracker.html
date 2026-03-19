@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="CrossFit Prior Lake — track your check-ins, weight, and accountability.">
-  <title>My Tracker | CrossFit Prior Lake</title>
+  <meta name="description" content="CKO Kickboxing Emerson — track your check-ins, weight, and accountability.">
+  <title>My Tracker | CKO Kickboxing Emerson</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -34,7 +34,7 @@
 
   <div class="members-area">
     <div class="members-area-header">
-      <a href="members-area.html" class="members-area-logo"><img src="images/logo.webp" alt="CrossFit Prior Lake"></a>
+      <a href="members-area.html" class="members-area-logo"><img src="images/cko-logo.png" alt="CKO Kickboxing Emerson"></a>
       <a href="members-area.html" class="tracker-back"><i class="fas fa-arrow-left"></i> Members Area</a>
     </div>
 
@@ -428,7 +428,7 @@
       });
 
       var MILESTONES = [
-        { count: 50,  icon: 'fa-shirt',    label: '50 Classes',  reward: 'Free CFPL Merch',                color: '#3b82f6' },
+        { count: 50,  icon: 'fa-shirt',    label: '50 Classes',  reward: 'Free CKO Merch',                color: '#3b82f6' },
         { count: 100, icon: 'fa-dumbbell',  label: '100 Classes', reward: 'Free Personal Training Session', color: '#f59e0b' },
         { count: 150, icon: 'fa-star',      label: '150 Classes', reward: 'Free Month of Membership',       color: '#ef4444' }
       ];
@@ -768,8 +768,8 @@
 
           // Gradient fill under line
           var grad = ctx.createLinearGradient(0, pad.top, 0, H - pad.bottom);
-          grad.addColorStop(0, 'rgba(58, 123, 213, 0.15)');
-          grad.addColorStop(1, 'rgba(58, 123, 213, 0.01)');
+          grad.addColorStop(0, 'rgba(200, 160, 0, 0.15)');
+          grad.addColorStop(1, 'rgba(200, 160, 0, 0.01)');
           ctx.fillStyle = grad;
           ctx.beginPath();
           ctx.moveTo(points[0].x, H - pad.bottom);
@@ -782,7 +782,7 @@
           ctx.fill();
 
           // Line
-          ctx.strokeStyle = 'var(--blue, #3a7bd5)';
+          ctx.strokeStyle = '#C8A000';
           ctx.lineWidth = 2.5;
           ctx.lineJoin = 'round';
           ctx.beginPath();
@@ -796,9 +796,9 @@
           points.forEach(function(p, idx) {
             ctx.beginPath();
             ctx.arc(p.x, p.y, 4, 0, Math.PI * 2);
-            ctx.fillStyle = idx === points.length - 1 ? '#3a7bd5' : '#fff';
+            ctx.fillStyle = idx === points.length - 1 ? '#C8A000' : '#fff';
             ctx.fill();
-            ctx.strokeStyle = '#3a7bd5';
+            ctx.strokeStyle = '#C8A000';
             ctx.lineWidth = 2;
             ctx.stroke();
           });
@@ -817,7 +817,7 @@
           var y = pad.top + cH / 2;
           ctx.beginPath();
           ctx.arc(x, y, 6, 0, Math.PI * 2);
-          ctx.fillStyle = '#3a7bd5';
+          ctx.fillStyle = '#C8A000';
           ctx.fill();
           ctx.fillStyle = '#666';
           ctx.font = '12px Open Sans, sans-serif';

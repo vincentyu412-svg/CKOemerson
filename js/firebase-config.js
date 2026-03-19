@@ -1,23 +1,22 @@
 /*  ── Firebase Configuration ──
  *  
- *  SETUP INSTRUCTIONS:
- *  1. Go to https://console.firebase.google.com
- *  2. Click "Create a project" → name it "crossfit-prior-lake"
- *  3. Disable Google Analytics (not needed) → Create Project
- *  4. Click the web icon (</>) to add a web app → nickname "CFPL Web"
- *  5. Copy the firebaseConfig values below
- *  6. Go to Authentication → Sign-in method → Enable "Email/Password"
- *  7. Go to Firestore Database → Create database → Start in production mode
- *  8. Go to Firestore → Rules tab → paste the rules from firestore-rules.txt
+ *  Project: CKO Emerson
+ *  Console: https://console.firebase.google.com/project/cko-emerson
+ *  
+ *  SETUP CHECKLIST:
+ *  1. Authentication → Sign-in method → Enable "Email/Password"
+ *  2. Firestore Database → Create database → Production mode
+ *  3. Firestore → Rules tab → paste rules from firestore-rules.txt → Publish
  */
 
 var firebaseConfig = {
-  apiKey: "AIzaSyAkSuh9WX5d17euZy-V_aA2QFjWOpBaNXs",
-  authDomain: "crossfit-prior-lake-89f2c.firebaseapp.com",
-  projectId: "crossfit-prior-lake-89f2c",
-  storageBucket: "crossfit-prior-lake-89f2c.firebasestorage.app",
-  messagingSenderId: "378638799222",
-  appId: "1:378638799222:web:6aa0f03a3a13410779aa57"
+  apiKey: "AIzaSyCyiFL-a8hBFO0mxjZLiVYkPFiIflF0LHQ",
+  authDomain: "cko-emerson.firebaseapp.com",
+  projectId: "cko-emerson",
+  storageBucket: "cko-emerson.firebasestorage.app",
+  messagingSenderId: "435392157146",
+  appId: "1:435392157146:web:663d574d4fcfd2afe5dce3",
+  measurementId: "G-6DX94WEJMP"
 };
 
 // Initialize Firebase

@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="CrossFit Prior Lake members area — view the weekly class schedule.">
-  <title>Members Area | CrossFit Prior Lake</title>
+  <meta name="description" content="CKO Kickboxing Emerson members area — view the weekly class schedule.">
+  <title>Members Area | CKO Kickboxing Emerson</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -28,14 +28,14 @@
   <link rel="icon" type="image/webp" sizes="16x16" href="images/favicon-16x16.webp">
   <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.webp">
   <link rel="manifest" href="site.webmanifest">
-  <link rel="canonical" href="https://crossfitpriorlake.com/members-area.html">
+  <link rel="canonical" href="https://ckoemerson.com/members-area.html">
   <meta name="robots" content="noindex, nofollow">
 </head>
 <body>
 
   <div class="members-area">
     <div class="members-area-header">
-      <a href="index.html" class="members-area-logo"><img src="images/logo.webp" alt="CrossFit Prior Lake"></a>
+      <a href="index.html" class="members-area-logo"><img src="images/cko-logo.png" alt="CKO Kickboxing Emerson"></a>
       <h1 class="members-area-heading">Members Area</h1>
       <p class="members-area-sub">View this week's class schedule below.</p>
     </div>
@@ -57,7 +57,7 @@
       <div class="refer-modal">
         <button class="refer-modal-close" onclick="document.getElementById('referModal').classList.remove('is-open')" aria-label="Close"><i class="fas fa-xmark"></i></button>
         <h2><i class="fas fa-gift"></i> Refer a Member</h2>
-        <p>Know someone who'd love CrossFit Prior Lake? Refer them and they'll get a <strong>free 3-day VIP pass</strong>. When they sign up, <strong>you get a free month</strong>!</p>
+        <p>Know someone who'd love CKO Kickboxing Emerson? Refer them and they'll get a <strong>free 3-day VIP pass</strong>. When they sign up, <strong>you get a free month</strong>!</p>
         <form class="refer-form" onsubmit="submitReferral(event)">
           <div class="refer-section-label"><i class="fas fa-user"></i> Your Info</div>
           <div class="refer-name-row">
@@ -101,10 +101,17 @@
     </a>
 
     <div class="members-area-calendar">
-      <iframe src="https://events.timely.fun/4xw31bei/week?nofilters=1" title="Class Schedule" frameborder="0" allowfullscreen loading="lazy"></iframe>
+      <h2 class="members-area-heading">Class Schedule</h2>
+      <table class="contact-hours-table" style="width:100%;max-width:600px;margin:0 auto 24px;">
+        <tr><td class="contact-hours-day">MONDAY</td><td class="contact-hours-time">9–10 AM, 10–11 AM, 5:30–6:30 PM, 6:30–7:30 PM</td></tr>
+        <tr><td class="contact-hours-day">TUESDAY</td><td class="contact-hours-time">9–10 AM, 10–11 AM, 5:30–6:30 PM, 6:30–7:30 PM</td></tr>
+        <tr><td class="contact-hours-day">WEDNESDAY</td><td class="contact-hours-time">9–10 AM, 10–11 AM, 6–7 PM, 7–8 PM</td></tr>
+        <tr><td class="contact-hours-day">THURSDAY</td><td class="contact-hours-time">9–10 AM, 10–11 AM, 6–7 PM, 7–8 PM</td></tr>
+        <tr><td class="contact-hours-day">FRIDAY</td><td class="contact-hours-time">9–10 AM, 10–11 AM</td></tr>
+        <tr><td class="contact-hours-day">SATURDAY</td><td class="contact-hours-time">8–9 AM, 9–10 AM, 10–11 AM</td></tr>
+        <tr><td class="contact-hours-day">SUNDAY</td><td class="contact-hours-time">9–10 AM, 10–11 AM, 11–11:30 AM</td></tr>
+      </table>
     </div>
-    <h2 class="members-area-heading" style="margin-top:48px;">Workouts of the Week</h2>
-    <p class="members-area-sub"><a href="https://drive.google.com/drive/folders/1n11GgbxBYTU2CswyBfxz4XaDeVoaTISQ" target="_blank" rel="noopener noreferrer" style="color:var(--blue);text-decoration:underline;">View Workouts <i class="fas fa-external-link-alt"></i></a></p>
 
     <div class="members-area-footer">
       <a href="index.html" class="login-return">RETURN BACK TO WEBSITE</a>
@@ -112,7 +119,7 @@
   </div>
 
   <script>
-    if (sessionStorage.getItem('cfpl_auth') !== '1') {
+    if (sessionStorage.getItem('cko_auth') !== '1') {
       window.location.href = 'members.html';
     }
 
