@@ -558,7 +558,7 @@ h3 { font-size: 1.5rem; }
   position: relative;
   padding-top: 180px;
   padding-bottom: 140px;
-  background: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)), url('../images/background.webp') center/cover no-repeat fixed;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)), url('../images/background.webp?v=2') center/cover no-repeat fixed;
 }
 
 .hero-mountain {
