@@ -5090,8 +5090,8 @@ h3 { font-size: 1.5rem; }
   align-items: center;
   justify-content: center;
   gap: 8px;
-  background: linear-gradient(135deg, #e8f4fd, #dbeafe);
-  color: #2563eb;
+  background: linear-gradient(135deg, #fdf6e0, #f5e6a3);
+  color: #A68500;
   font-family: var(--font-display);
   font-size: .7rem;
   font-weight: 700;
