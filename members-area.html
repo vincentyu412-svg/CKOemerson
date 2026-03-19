@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="CrossFit Prior Lake members area — view the weekly class schedule.">
+  <title>Members Area | CrossFit Prior Lake</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+
+  <link rel="preload" href="css/style.css?v=2" as="style">
+  <link rel="stylesheet" href="css/style.css?v=2">
+
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap" media="print" onload="this.media='all'">
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'">
+
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  </noscript>
+
+  <link rel="icon" type="image/webp" sizes="32x32" href="images/favicon-32x32.webp">
+  <link rel="icon" type="image/webp" sizes="16x16" href="images/favicon-16x16.webp">
+  <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.webp">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="canonical" href="https://crossfitpriorlake.com/members-area.html">
+  <meta name="robots" content="noindex, nofollow">
+</head>
+<body>
+
+  <div class="members-area">
+    <div class="members-area-header">
+      <a href="index.html" class="members-area-logo"><img src="images/logo.webp" alt="CrossFit Prior Lake"></a>
+      <h1 class="members-area-heading">Members Area</h1>
+      <p class="members-area-sub">View this week's class schedule below.</p>
+    </div>
+
+    <!-- Refer a Friend Banner -->
+    <div class="refer-banner" onclick="document.getElementById('referModal').classList.add('is-open')">
+      <div class="refer-banner-glow"></div>
+      <div class="refer-banner-content">
+        <div class="refer-banner-icon"><i class="fas fa-gift"></i></div>
+        <div class="refer-banner-text">
+          <h2>Refer a Friend — Get a Free Month</h2>
+        </div>
+        <div class="refer-banner-arrow"><i class="fas fa-arrow-right"></i></div>
+      </div>
+    </div>
+
+    <!-- Refer a Member Modal -->
+    <div class="refer-modal-overlay" id="referModal" onclick="if(event.target===this)this.classList.remove('is-open')">
+      <div class="refer-modal">
+        <button class="refer-modal-close" onclick="document.getElementById('referModal').classList.remove('is-open')" aria-label="Close"><i class="fas fa-xmark"></i></button>
+        <h2><i class="fas fa-gift"></i> Refer a Member</h2>
+        <p>Know someone who'd love CrossFit Prior Lake? Refer them and they'll get a <strong>free 3-day VIP pass</strong>. When they sign up, <strong>you get a free month</strong>!</p>
+        <form class="refer-form" onsubmit="submitReferral(event)">
+          <div class="refer-section-label"><i class="fas fa-user"></i> Your Info</div>
+          <div class="refer-name-row">
+            <label>First Name<input type="text" name="referrer_first_name" required></label>
+            <label>Last Name<input type="text" name="referrer_last_name" required></label>
+          </div>
+          <div class="refer-section-label"><i class="fas fa-user-plus"></i> Friend's Info</div>
+          <label>First Name<input type="text" name="friend_first_name" required></label>
+          <label>Phone<input type="tel" name="friend_phone" required></label>
+          <label>Email <span class="refer-optional">(optional)</span><input type="email" name="friend_email"></label>
+          <button type="submit" class="refer-form-submit"><i class="fas fa-paper-plane"></i> Send Referral</button>
+          <div class="refer-form-status" style="display:none; text-align:center; font-size:0.85rem; font-weight:600;"></div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Nutrition Kickstart Banner -->
+    <a href="nutrition.html" class="nk-banner">
+      <div class="nk-banner-glow"></div>
+      <div class="nk-banner-content">
+        <div class="nk-banner-icon"><i class="fas fa-seedling"></i></div>
+        <div class="nk-banner-text">
+          <h2>Nutrition Kickstart</h2>
+          <p>Meal plans, recipes, cooking videos &amp; more — tap to explore</p>
+        </div>
+        <div class="nk-banner-arrow"><i class="fas fa-arrow-right"></i></div>
+      </div>
+    </a>
+
+    <!-- Tracker Banner -->
+    <a href="tracker.html" class="tracker-banner">
+      <div class="nk-banner-glow"></div>
+      <div class="nk-banner-content">
+        <div class="tracker-banner-icon"><i class="fas fa-bullseye"></i></div>
+        <div class="nk-banner-text">
+          <h2>My Tracker</h2>
+          <p>Log check-ins, track weight &amp; stay accountable</p>
+        </div>
+        <div class="nk-banner-arrow"><i class="fas fa-arrow-right"></i></div>
+      </div>
+    </a>
+
+    <div class="members-area-calendar">
+      <iframe src="https://events.timely.fun/4xw31bei/week?nofilters=1" title="Class Schedule" frameborder="0" allowfullscreen loading="lazy"></iframe>
+    </div>
+    <h2 class="members-area-heading" style="margin-top:48px;">Workouts of the Week</h2>
+    <p class="members-area-sub"><a href="https://drive.google.com/drive/folders/1n11GgbxBYTU2CswyBfxz4XaDeVoaTISQ" target="_blank" rel="noopener noreferrer" style="color:var(--blue);text-decoration:underline;">View Workouts <i class="fas fa-external-link-alt"></i></a></p>
+
+    <div class="members-area-footer">
+      <a href="index.html" class="login-return">RETURN BACK TO WEBSITE</a>
+    </div>
+  </div>
+
+  <script>
+    if (sessionStorage.getItem('cfpl_auth') !== '1') {
+      window.location.href = 'members.html';
+    }
+
+    async function submitReferral(e) {
+      e.preventDefault();
+      var form = e.target;
+      var btn = form.querySelector('.refer-form-submit');
+      var status = form.querySelector('.refer-form-status');
+      var data = {
+        referrer_first_name: form.referrer_first_name.value.trim(),
+        referrer_last_name: form.referrer_last_name.value.trim(),
+        friend_first_name: form.friend_first_name.value.trim(),
+        friend_phone: form.friend_phone.value.trim(),
+        friend_email: form.friend_email.value.trim()
+      };
+
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+      status.style.display = 'none';
+
+      try {
+        var res = await fetch('https://services.leadconnectorhq.com/hooks/QU0KfW1QodK79UH6fB31/webhook-trigger/f7ddec81-7a40-4352-9c2e-4630d4f50f0f', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        if (!res.ok) throw new Error('Request failed');
+        status.style.display = 'block';
+        status.style.color = '#16a34a';
+        status.textContent = 'Referral sent! Thanks for spreading the word.';
+        form.reset();
+      } catch (err) {
+        status.style.display = 'block';
+        status.style.color = '#dc2626';
+        status.textContent = 'Something went wrong. Please try again.';
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Referral';
+      }
+    }
+  </script>
+
+  <script src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="67d07bcbf71a1a4a21e40b2a"></script>
+</body>
+</html>

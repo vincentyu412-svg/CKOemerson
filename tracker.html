@@ -1,0 +1,1256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="CrossFit Prior Lake — track your check-ins, weight, and accountability.">
+  <title>My Tracker | CrossFit Prior Lake</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+
+  <link rel="preload" href="css/style.css?v=3" as="style">
+  <link rel="stylesheet" href="css/style.css?v=3">
+
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap" media="print" onload="this.media='all'">
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'">
+
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  </noscript>
+
+  <link rel="icon" type="image/webp" sizes="32x32" href="images/favicon-32x32.webp">
+  <link rel="icon" type="image/webp" sizes="16x16" href="images/favicon-16x16.webp">
+  <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.webp">
+  <link rel="manifest" href="site.webmanifest">
+  <meta name="robots" content="noindex, nofollow">
+</head>
+<body>
+
+  <div class="members-area">
+    <div class="members-area-header">
+      <a href="members-area.html" class="members-area-logo"><img src="images/logo.webp" alt="CrossFit Prior Lake"></a>
+      <a href="members-area.html" class="tracker-back"><i class="fas fa-arrow-left"></i> Members Area</a>
+    </div>
+
+    <div class="tracker-section">
+      <h2 class="tracker-heading"><i class="fas fa-bullseye"></i> My Tracker</h2>
+
+      <!-- Tracker Login -->
+      <div class="tracker-auth" id="trackerAuth">
+        <div class="login-card" style="margin:0 auto 24px;">
+          <h3 class="login-heading" id="tAuthHeading" style="font-size:1.4rem;">Sign in to your Tracker</h3>
+          <p class="login-sub" id="tAuthSub">Log in or create an account to sync your progress across devices.</p>
+          <form class="login-form" id="tLoginForm">
+            <input type="email" id="tLoginEmail" placeholder="Email address" required autocomplete="email">
+            <input type="password" id="tLoginPassword" placeholder="Password" required autocomplete="current-password">
+            <p class="login-error" id="tLoginError"></p>
+            <button type="submit" class="login-btn" id="tLoginBtn">SIGN IN</button>
+          </form>
+          <form class="login-form" id="tRegForm" style="display:none;">
+            <input type="text" id="tRegName" placeholder="Full name" required autocomplete="name">
+            <input type="email" id="tRegEmail" placeholder="Email address" required autocomplete="email">
+            <input type="password" id="tRegPassword" placeholder="Create password (min 6 characters)" required minlength="6" autocomplete="new-password">
+            <input type="password" id="tRegConfirm" placeholder="Confirm password" required minlength="6" autocomplete="new-password">
+            <p class="login-error" id="tRegError"></p>
+            <button type="submit" class="login-btn" id="tRegBtn">CREATE ACCOUNT</button>
+          </form>
+          <div class="login-toggle">
+            <span id="tToggleText">Don't have an account?</span>
+            <button type="button" class="login-toggle-btn" id="tToggleBtn">Create one</button>
+          </div>
+          <div class="login-forgot">
+            <button type="button" class="login-forgot-btn" id="tForgotBtn">Forgot password?</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Setup screen -->
+      <div class="tracker-setup" id="trackerSetup" style="display:none;">
+        <p class="tracker-setup-text">Set up your tracker to log check-ins, track weight, and stay accountable.</p>
+        <form class="tracker-setup-form" id="trackerSetupForm">
+          <div class="refer-name-row">
+            <label>First Name<input type="text" id="tsFirstName" required></label>
+            <label>Last Name<input type="text" id="tsLastName" required></label>
+          </div>
+          <label>Phone<input type="tel" id="tsPhone" required></label>
+          <label>Weekly Goal (classes per week)
+            <select id="tsGoal">
+              <option value="1">1 class</option>
+              <option value="2">2 classes</option>
+              <option value="3">3 classes</option>
+              <option value="4" selected>4 classes</option>
+              <option value="5">5 classes</option>
+              <option value="6">6 classes</option>
+              <option value="7">7 classes</option>
+            </select>
+          </label>
+          <div class="refer-name-row">
+            <label>Current Weight (lbs)<input type="number" id="tsWeight" step="0.1" min="50" max="500"></label>
+            <label>Goal Weight (lbs)<input type="number" id="tsGoalWeight" step="0.1" min="50" max="500"></label>
+          </div>
+          <label>Target Date<input type="date" id="tsGoalDate" required></label>
+          <button type="submit" class="tracker-btn-primary"><i class="fas fa-check"></i> Start Tracking</button>
+        </form>
+      </div>
+
+      <!-- Main tracker -->
+      <div class="tracker-main" id="trackerMain" style="display:none;">
+        <div class="tracker-welcome" id="trackerWelcome"></div>
+        <div class="tracker-quote" id="trackerQuote"></div>
+
+        <!-- Stats dashboard -->
+        <div class="tracker-stats-row">
+          <div class="tracker-stat-box">
+            <div class="tracker-stat-value" id="statTotal">0</div>
+            <div class="tracker-stat-label">Total Classes</div>
+          </div>
+          <div class="tracker-stat-box accent">
+            <div class="tracker-stat-value" id="statStreak">0</div>
+            <div class="tracker-stat-label">Week Streak <i class="fas fa-fire"></i></div>
+          </div>
+          <div class="tracker-stat-box">
+            <div class="tracker-stat-value" id="statBest">0</div>
+            <div class="tracker-stat-label">Best Streak</div>
+          </div>
+        </div>
+
+        <!-- Milestone Rewards -->
+        <div class="tracker-card tracker-milestones-card">
+          <div class="tracker-card-header">
+            <h3><i class="fas fa-trophy"></i> Milestones &amp; Rewards</h3>
+          </div>
+          <div class="tracker-milestones" id="trackerMilestones"></div>
+          <div class="tracker-milestone-next" id="milestoneNext"></div>
+        </div>
+
+        <!-- Weekly attendance with goal ring -->
+        <div class="tracker-card">
+          <div class="tracker-card-header">
+            <h3><i class="fas fa-calendar-check"></i> This Week</h3>
+            <button class="tracker-btn-goal" id="goalToggleBtn" onclick="toggleGoalEditor()"><i class="fas fa-sliders"></i> Edit Goal</button>
+          </div>
+          <!-- Inline goal editor -->
+          <div class="tracker-inline-editor" id="goalEditor" style="display:none;">
+            <label class="tracker-inline-label">Weekly class goal</label>
+            <div class="tracker-inline-row">
+              <select id="goalEditorSelect" class="tracker-inline-select">
+                <option value="1">1 class</option>
+                <option value="2">2 classes</option>
+                <option value="3">3 classes</option>
+                <option value="4">4 classes</option>
+                <option value="5">5 classes</option>
+                <option value="6">6 classes</option>
+                <option value="7">7 classes</option>
+              </select>
+              <button class="tracker-inline-save" onclick="saveGoal()"><i class="fas fa-check"></i></button>
+              <button class="tracker-inline-cancel" onclick="toggleGoalEditor()"><i class="fas fa-times"></i></button>
+            </div>
+          </div>
+          <div class="tracker-week-visual">
+            <div class="tracker-ring-wrap">
+              <svg class="tracker-ring" viewBox="0 0 100 100">
+                <circle class="tracker-ring-bg" cx="50" cy="50" r="42" fill="none" stroke-width="8"/>
+                <circle class="tracker-ring-fill" id="trackerRing" cx="50" cy="50" r="42" fill="none" stroke-width="8" stroke-linecap="round" stroke-dasharray="263.89" stroke-dashoffset="263.89" transform="rotate(-90 50 50)"/>
+              </svg>
+              <div class="tracker-ring-label">
+                <span class="tracker-ring-num" id="trackerWeekCount">0</span>
+                <span class="tracker-ring-goal">/ <span id="trackerGoalDisplay">4</span></span>
+              </div>
+            </div>
+            <div class="tracker-week-dots" id="trackerWeekDots"></div>
+          </div>
+          <p class="tracker-checkin-hint"><i class="fas fa-info-circle"></i> Only check in on days you completed a workout</p>
+          <button class="tracker-btn-checkin" id="trackerCheckinBtn" onclick="logCheckin()"><i class="fas fa-dumbbell"></i> Log Today's Workout</button>
+        </div>
+
+        <!-- Weight Journey Graph -->
+        <div class="tracker-card" id="trackerWeightCard">
+          <div class="tracker-card-header">
+            <h3><i class="fas fa-chart-line"></i> Weight Journey</h3>
+            <button class="tracker-btn-goal" id="goalWeightToggleBtn" onclick="toggleGoalWeightEditor()"><i class="fas fa-bullseye"></i> Set Goal</button>
+          </div>
+          <!-- Inline goal weight editor -->
+          <div class="tracker-inline-editor" id="goalWeightEditor" style="display:none;">
+            <div class="tracker-inline-row-stack">
+              <div class="tracker-inline-field">
+                <label class="tracker-inline-label">Goal weight (lbs)</label>
+                <input type="number" id="goalWeightInput" class="tracker-inline-input" step="0.1" min="50" max="500" placeholder="e.g. 175">
+              </div>
+              <div class="tracker-inline-field">
+                <label class="tracker-inline-label">Target date</label>
+                <input type="date" id="goalDateInput" class="tracker-inline-input">
+              </div>
+            </div>
+            <div class="tracker-inline-row" style="margin-top:8px;">
+              <button class="tracker-inline-save" onclick="saveGoalWeight()" style="flex:1;border-radius:8px;width:auto;height:auto;padding:8px;"><i class="fas fa-check"></i> Save Goal</button>
+              <button class="tracker-inline-cancel" onclick="toggleGoalWeightEditor()" style="flex:0;width:34px;height:34px;"><i class="fas fa-times"></i></button>
+            </div>
+          </div>
+          <div class="tracker-weight-summary" id="weightSummary" style="display:none;">
+            <div class="tracker-weight-stat">
+              <span class="tracker-weight-label">Start</span>
+              <span class="tracker-weight-value" id="wtStart">—</span>
+            </div>
+            <div class="tracker-weight-arrow"><i class="fas fa-arrow-right"></i></div>
+            <div class="tracker-weight-stat">
+              <span class="tracker-weight-label">Current</span>
+              <span class="tracker-weight-value" id="wtCurrent">—</span>
+            </div>
+            <div class="tracker-weight-arrow"><i class="fas fa-arrow-right"></i></div>
+            <div class="tracker-weight-stat goal">
+              <span class="tracker-weight-label">Goal</span>
+              <span class="tracker-weight-value" id="wtGoal">—</span>
+            </div>
+            <div class="tracker-weight-stat change">
+              <span class="tracker-weight-label">Progress</span>
+              <span class="tracker-weight-value" id="wtChange">—</span>
+            </div>
+          </div>
+          <div class="tracker-chart-wrap">
+            <canvas id="weightChart" height="200"></canvas>
+          </div>
+          <div class="tracker-chart-empty" id="chartEmpty">
+            <i class="fas fa-chart-area"></i>
+            <p>Log your weight to see your progress graph</p>
+          </div>
+          <button class="tracker-btn-delete-entry" id="deleteLastWeight" onclick="deleteLastWeight()" style="display:none;"><i class="fas fa-undo"></i> Remove Last Entry</button>
+          <!-- AI Insight -->
+          <div class="tracker-ai-insight" id="aiInsight" style="display:none;"></div>
+        </div>
+
+        <!-- Member Info -->
+        <div class="tracker-card tracker-member-card">
+          <div class="tracker-card-header">
+            <h3><i class="fas fa-user-circle"></i> My Profile</h3>
+            <button class="tracker-btn-small" id="editProfileToggle" onclick="toggleEditProfile()"><i class="fas fa-pencil"></i> Edit</button>
+          </div>
+          <div class="tracker-member-info" id="memberInfo">
+            <div class="tracker-member-since">
+              <i class="fas fa-clock"></i>
+              <span id="memberSince"></span>
+            </div>
+            <div class="tracker-member-details" id="memberDetails"></div>
+          </div>
+          <!-- Inline edit profile -->
+          <div class="tracker-edit-profile" id="editProfileForm" style="display:none;">
+            <div class="refer-name-row">
+              <label>First Name<input type="text" id="epFirstName"></label>
+              <label>Last Name<input type="text" id="epLastName"></label>
+            </div>
+            <label>Phone<input type="tel" id="epPhone"></label>
+            <div class="tracker-edit-actions">
+              <button class="tracker-btn-primary" onclick="saveProfile()"><i class="fas fa-save"></i> Save</button>
+              <button class="tracker-btn-secondary" onclick="toggleEditProfile()">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="members-area-footer">
+      <a href="members-area.html" class="login-return"><i class="fas fa-arrow-left"></i> BACK TO MEMBERS AREA</a>
+    </div>
+  </div>
+
+  <!-- Check-in Popup -->
+  <div class="checkin-overlay" id="checkinOverlay" style="display:none;" onclick="if(event.target===this)closeCheckinPopup()">
+    <div class="checkin-popup">
+      <div class="checkin-popup-header">
+        <h3><i class="fas fa-clipboard-check"></i> Check In</h3>
+        <button class="checkin-popup-close" onclick="closeCheckinPopup()"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="checkin-popup-body">
+        <label class="checkin-popup-label">Weight (lbs) <span class="checkin-required">*</span></label>
+        <input type="number" id="checkinWeight" class="checkin-popup-input" step="0.1" min="50" max="500" placeholder="e.g. 175" required>
+        <label class="checkin-popup-label">How are you feeling? <span class="checkin-optional">(optional)</span></label>
+        <textarea id="checkinNotes" class="checkin-popup-textarea" rows="3" maxlength="300" placeholder="Tired, sore, energized, stressed, great..."></textarea>
+      </div>
+      <div class="checkin-popup-actions">
+        <button class="tracker-btn-primary checkin-popup-submit" onclick="submitCheckin()"><i class="fas fa-check"></i> Check In</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Confetti canvas -->
+  <canvas id="confettiCanvas" style="position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:9999;"></canvas>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+  <script src="js/firebase-config.js"></script>
+
+  <script>
+    (function() {
+      var auth = firebase.auth();
+      var db = firebase.firestore();
+      var currentUser = null;
+      var docRef = null;
+      var profile = null;
+      var entries = [];
+      var isLogin = true;
+      var initDone = false;
+
+      function saveData() {
+        if (!docRef) return;
+        docRef.set({ profile: profile, entries: entries }).catch(function(err) {
+          console.error('Firestore save failed:', err);
+          alert('Failed to save data. Please check your connection and try again.');
+        });
+      }
+
+      // Friendly error messages
+      function friendlyError(code) {
+        switch (code) {
+          case 'auth/invalid-email': return 'Please enter a valid email address.';
+          case 'auth/user-disabled': return 'This account has been disabled.';
+          case 'auth/user-not-found': return 'No account found with that email.';
+          case 'auth/wrong-password': return 'Incorrect password. Please try again.';
+          case 'auth/invalid-credential': return 'Incorrect email or password.';
+          case 'auth/email-already-in-use': return 'An account with this email already exists.';
+          case 'auth/weak-password': return 'Password must be at least 6 characters.';
+          case 'auth/too-many-requests': return 'Too many attempts. Please wait a moment.';
+          default: return 'Something went wrong. Please try again.';
+        }
+      }
+
+      function initTracker(user) {
+        if (initDone) return;
+        initDone = true;
+        currentUser = user;
+        docRef = db.collection('users').doc(user.uid);
+        document.getElementById('trackerAuth').style.display = 'none';
+        // Keep setup hidden until we know if profile exists
+        document.getElementById('trackerSetup').style.display = 'none';
+        docRef.get().then(function(doc) {
+          if (doc.exists) {
+            var data = doc.data();
+            profile = data.profile || null;
+            entries = data.entries || [];
+          }
+          if (profile) {
+            showTracker(profile);
+          } else {
+            document.getElementById('trackerSetup').style.display = '';
+          }
+        }).catch(function(err) {
+          console.error('Firestore read failed:', err);
+          // Retry once after a short delay
+          setTimeout(function() {
+            docRef.get().then(function(doc) {
+              if (doc.exists) {
+                var data = doc.data();
+                profile = data.profile || null;
+                entries = data.entries || [];
+              }
+              if (profile) {
+                showTracker(profile);
+              } else {
+                document.getElementById('trackerSetup').style.display = '';
+              }
+            }).catch(function() {
+              document.getElementById('trackerSetup').style.display = '';
+            });
+          }, 1000);
+        });
+      }
+
+      // Check if already signed in
+      auth.onAuthStateChanged(function(user) {
+        if (user) initTracker(user);
+      });
+
+      // Toggle login/register
+      document.getElementById('tToggleBtn').addEventListener('click', function() {
+        isLogin = !isLogin;
+        document.getElementById('tLoginForm').style.display = isLogin ? '' : 'none';
+        document.getElementById('tRegForm').style.display = isLogin ? 'none' : '';
+        document.getElementById('tAuthHeading').textContent = isLogin ? 'Sign in to your Tracker' : 'Create your Tracker account';
+        document.getElementById('tAuthSub').textContent = isLogin ? 'Log in or create an account to sync your progress across devices.' : 'Create an account to track your progress from any device.';
+        document.getElementById('tToggleText').textContent = isLogin ? "Don't have an account?" : 'Already have an account?';
+        document.getElementById('tToggleBtn').textContent = isLogin ? 'Create one' : 'Sign in';
+        document.getElementById('tForgotBtn').style.display = isLogin ? '' : 'none';
+        document.getElementById('tLoginError').style.display = 'none';
+        document.getElementById('tRegError').style.display = 'none';
+      });
+
+      // Login
+      document.getElementById('tLoginForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        var email = document.getElementById('tLoginEmail').value.trim();
+        var password = document.getElementById('tLoginPassword').value;
+        var btn = document.getElementById('tLoginBtn');
+        var err = document.getElementById('tLoginError');
+        err.style.display = 'none';
+        btn.disabled = true; btn.textContent = 'SIGNING IN...';
+        auth.signInWithEmailAndPassword(email, password)
+          .then(function() { /* onAuthStateChanged handles initTracker */ })
+          .catch(function(error) {
+            err.textContent = friendlyError(error.code); err.style.display = 'block';
+            btn.disabled = false; btn.textContent = 'SIGN IN';
+          });
+      });
+
+      // Register
+      document.getElementById('tRegForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        var name = document.getElementById('tRegName').value.trim();
+        var email = document.getElementById('tRegEmail').value.trim();
+        var password = document.getElementById('tRegPassword').value;
+        var confirm = document.getElementById('tRegConfirm').value;
+        var btn = document.getElementById('tRegBtn');
+        var err = document.getElementById('tRegError');
+        err.style.display = 'none';
+        if (password !== confirm) { err.textContent = 'Passwords do not match.'; err.style.display = 'block'; return; }
+        btn.disabled = true; btn.textContent = 'CREATING ACCOUNT...';
+        auth.createUserWithEmailAndPassword(email, password)
+          .then(function(cred) { return cred.user.updateProfile({ displayName: name }); })
+          .catch(function(error) {
+            err.textContent = friendlyError(error.code); err.style.display = 'block';
+            btn.disabled = false; btn.textContent = 'CREATE ACCOUNT';
+          });
+      });
+
+      // Forgot password
+      document.getElementById('tForgotBtn').addEventListener('click', function() {
+        var email = document.getElementById('tLoginEmail').value.trim();
+        var err = document.getElementById('tLoginError');
+        if (!email) { err.textContent = 'Enter your email above, then click "Forgot password?"'; err.style.display = 'block'; return; }
+        auth.sendPasswordResetEmail(email)
+          .then(function() { err.textContent = 'Password reset email sent! Check your inbox.'; err.style.display = 'block'; err.style.color = '#16a34a'; })
+          .catch(function(error) { err.textContent = friendlyError(error.code); err.style.display = 'block'; err.style.color = ''; });
+      });
+
+      var MILESTONES = [
+        { count: 50,  icon: 'fa-shirt',    label: '50 Classes',  reward: 'Free CFPL Merch',                color: '#3b82f6' },
+        { count: 100, icon: 'fa-dumbbell',  label: '100 Classes', reward: 'Free Personal Training Session', color: '#f59e0b' },
+        { count: 150, icon: 'fa-star',      label: '150 Classes', reward: 'Free Month of Membership',       color: '#ef4444' }
+      ];
+
+      var QUOTES = [
+        "The only bad workout is the one that didn't happen.",
+        "You don't have to be extreme, just consistent.",
+        "Small daily improvements lead to stunning results.",
+        "Your body can stand almost anything. It's your mind you have to convince.",
+        "The hard part isn't getting your body in shape. The hard part is getting your mind in shape.",
+        "Discipline is doing what needs to be done, even when you don't want to do it.",
+        "Success isn't always about greatness. It's about consistency.",
+        "Don't count the days. Make the days count.",
+        "You're one workout away from a good mood.",
+        "Results happen over time, not overnight. Stay patient and stay consistent."
+      ];
+
+      document.getElementById('trackerSetupForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        var startWeight = parseFloat(document.getElementById('tsWeight').value) || null;
+        profile = {
+          firstName: document.getElementById('tsFirstName').value.trim(),
+          lastName: document.getElementById('tsLastName').value.trim(),
+          phone: document.getElementById('tsPhone').value.trim(),
+          weeklyGoal: parseInt(document.getElementById('tsGoal').value) || 4,
+          goalWeight: parseFloat(document.getElementById('tsGoalWeight').value) || null,
+          goalDate: document.getElementById('tsGoalDate').value || null
+        };
+        // Log starting weight if provided
+        if (startWeight) {
+          entries.push({ type: 'log', date: new Date().toISOString(), weight: startWeight, mood: null });
+        }
+        saveData();
+        showTracker(profile);
+      });
+
+      function showTracker(p) {
+        document.getElementById('trackerSetup').style.display = 'none';
+        document.getElementById('trackerMain').style.display = 'block';
+
+        // Time-of-day greeting
+        var h = new Date().getHours();
+        var greeting = h < 12 ? 'Good morning' : h < 17 ? 'Good afternoon' : 'Good evening';
+        document.getElementById('trackerWelcome').textContent = greeting + ', ' + p.firstName + '!';
+
+        // Random quote
+        document.getElementById('trackerQuote').textContent = '"' + QUOTES[Math.floor(Math.random() * QUOTES.length)] + '"';
+
+        document.getElementById('trackerGoalDisplay').textContent = p.weeklyGoal || 4;
+        setTimeout(renderAll, 0);
+      }
+
+      function renderAll() {
+        renderStats();
+        renderMilestones();
+        renderWeek();
+        renderWeightChart();
+        renderInsight();
+        renderMemberInfo();
+      }
+
+      /* ── Stats ── */
+      function renderStats() {
+        var totalCheckins = entries.filter(function(e) { return e.type === 'checkin'; }).length;
+        document.getElementById('statTotal').textContent = totalCheckins;
+
+        var streaks = calcWeekStreaks();
+        document.getElementById('statStreak').textContent = streaks.current;
+        document.getElementById('statBest').textContent = streaks.best;
+      }
+
+      function getWeekStart(d) {
+        var dt = new Date(d); dt.setHours(0,0,0,0);
+        var day = dt.getDay(); var diff = day === 0 ? 6 : day - 1;
+        dt.setDate(dt.getDate() - diff);
+        return dt;
+      }
+
+      function calcWeekStreaks() {
+        var goal = (profile && profile.weeklyGoal) || 4;
+        var checkins = entries.filter(function(e) { return e.type === 'checkin'; });
+        if (checkins.length === 0) return { current: 0, best: 0 };
+
+        // Group check-ins by week (Mon-Sun), using week start as key
+        var weekMap = {};
+        checkins.forEach(function(c) {
+          var ws = getWeekStart(new Date(c.date));
+          var key = ws.toISOString().slice(0,10);
+          if (!weekMap[key]) weekMap[key] = new Set();
+          var d = new Date(c.date);
+          weekMap[key].add(d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0'));
+        });
+
+        // Determine which weeks met the goal
+        var weekKeys = Object.keys(weekMap).sort();
+        var metGoal = {};
+        weekKeys.forEach(function(k) { metGoal[k] = weekMap[k].size >= goal; });
+
+        // Current streak: walk backwards from current/last week
+        var thisWeek = getWeekStart(new Date()).toISOString().slice(0,10);
+        var lastWeek = new Date(getWeekStart(new Date())); lastWeek.setDate(lastWeek.getDate() - 7);
+        var lastWeekKey = lastWeek.toISOString().slice(0,10);
+
+        // Current week is in progress — include it if goal already met, otherwise start from last week
+        var startKey = metGoal[thisWeek] ? thisWeek : (metGoal[lastWeekKey] ? lastWeekKey : null);
+
+        var current = 0;
+        if (startKey) {
+          var wk = new Date(startKey + 'T00:00:00');
+          while (true) {
+            var key = wk.toISOString().slice(0,10);
+            if (!metGoal[key]) break;
+            current++;
+            wk.setDate(wk.getDate() - 7);
+          }
+        }
+
+        // Best streak
+        var best = 0, run = 0;
+        for (var i = 0; i < weekKeys.length; i++) {
+          if (metGoal[weekKeys[i]]) {
+            run++;
+            if (run > best) best = run;
+          } else {
+            // Check gap - if there's a missing week between entries, break the run
+            run = 0;
+          }
+          // Also check for week gaps
+          if (i > 0) {
+            var prev = new Date(weekKeys[i-1] + 'T00:00:00');
+            var curr = new Date(weekKeys[i] + 'T00:00:00');
+            if (curr - prev > 7 * 86400000 + 1) {
+              if (!metGoal[weekKeys[i]]) run = 0;
+              else run = 1;
+            }
+          }
+        }
+
+        return { current: current, best: best };
+      }
+
+      /* ── Milestones ── */
+      function renderMilestones() {
+        var total = entries.filter(function(e) { return e.type === 'checkin'; }).length;
+        var prevTotal = total - (entries.length > 0 && entries[entries.length-1].type === 'checkin' ? 1 : 0);
+        var container = document.getElementById('trackerMilestones');
+        var nextEl = document.getElementById('milestoneNext');
+
+        var html = '';
+        var nextMilestone = null;
+        MILESTONES.forEach(function(m) {
+          var reached = total >= m.count;
+          var justReached = reached && prevTotal < m.count;
+          html += '<div class="tracker-milestone' + (reached ? ' reached' : '') + '">';
+          html += '<div class="tracker-milestone-icon" style="' + (reached ? 'background:' + m.color : 'background:#e5e7eb') + '">';
+          html += '<i class="fas ' + m.icon + '"></i></div>';
+          html += '<div class="tracker-milestone-info">';
+          html += '<div class="tracker-milestone-label">' + m.label + '</div>';
+          html += '<div class="tracker-milestone-reward">' + m.reward + (reached ? ' <i class="fas fa-check-circle"></i>' : '') + '</div>';
+          html += '</div>';
+          if (reached) {
+            html += '<div class="tracker-milestone-badge">UNLOCKED</div>';
+          } else {
+            html += '<div class="tracker-milestone-remaining">' + (m.count - total) + ' to go</div>';
+          }
+          html += '</div>';
+
+          if (justReached) {
+            setTimeout(function() { fireConfetti(); }, 300);
+          }
+          if (!reached && !nextMilestone) nextMilestone = m;
+        });
+        container.innerHTML = html;
+
+        if (nextMilestone) {
+          var pct = Math.round((total / nextMilestone.count) * 100);
+          nextEl.innerHTML = '<div class="tracker-next-bar"><div class="tracker-next-fill" style="width:' + pct + '%"></div></div>' +
+            '<div class="tracker-next-text">' + total + ' / ' + nextMilestone.count + ' — ' + nextMilestone.reward + '</div>';
+        } else {
+          nextEl.innerHTML = '<div class="tracker-next-text" style="color:#f59e0b;"><i class="fas fa-crown"></i> All milestones unlocked — legend status!</div>';
+        }
+      }
+
+      /* ── Week + Ring ── */
+      function renderWeek() {
+        var ws = getWeekStart(new Date());
+        var days = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+        var checkins = entries.filter(function(e) { return e.type === 'checkin' && new Date(e.date) >= ws; });
+        var checkinDays = {};
+        checkins.forEach(function(c) { checkinDays[new Date(c.date).getDay()] = true; });
+        var dots = document.getElementById('trackerWeekDots');
+        dots.innerHTML = '';
+        var count = 0;
+        for (var i = 0; i < 7; i++) {
+          var dayNum = (i + 1) % 7;
+          var filled = checkinDays[dayNum];
+          if (filled) count++;
+          var dot = document.createElement('div');
+          dot.className = 'tracker-dot' + (filled ? ' filled' : '');
+          dot.innerHTML = '<span>' + days[i] + '</span>';
+          dots.appendChild(dot);
+        }
+        document.getElementById('trackerWeekCount').textContent = count;
+
+        var goal = (profile && profile.weeklyGoal) || 4;
+        var pct = Math.min(count / goal, 1);
+        var circumference = 2 * Math.PI * 42;
+        document.getElementById('trackerRing').style.strokeDashoffset = circumference * (1 - pct);
+
+        var today = new Date(); today.setHours(0,0,0,0);
+        var alreadyCheckedIn = checkins.some(function(c) {
+          var cd = new Date(c.date); cd.setHours(0,0,0,0);
+          return cd.getTime() === today.getTime();
+        });
+        var btn = document.getElementById('trackerCheckinBtn');
+        if (alreadyCheckedIn) {
+          btn.disabled = true;
+          btn.innerHTML = '<i class="fas fa-check"></i> Checked In Today';
+          btn.classList.add('checked');
+        } else {
+          btn.disabled = false;
+          btn.innerHTML = '<i class="fas fa-plus"></i> Check In Today';
+          btn.classList.remove('checked');
+        }
+      }
+
+      /* ── Weight Chart ── */
+      function renderWeightChart() {
+        var logs = entries.filter(function(e) { return e.type === 'log' && e.weight; });
+        var goalWeight = profile && profile.goalWeight;
+        var summary = document.getElementById('weightSummary');
+        var chartEmpty = document.getElementById('chartEmpty');
+        var canvas = document.getElementById('weightChart');
+
+        var deleteBtn = document.getElementById('deleteLastWeight');
+
+        if (logs.length === 0) {
+          summary.style.display = 'none';
+          chartEmpty.style.display = '';
+          canvas.style.display = 'none';
+          deleteBtn.style.display = 'none';
+          return;
+        }
+
+        summary.style.display = '';
+        deleteBtn.style.display = '';
+        canvas.style.display = '';
+        chartEmpty.style.display = 'none';
+
+        var first = logs[0].weight;
+        var last = logs[logs.length - 1].weight;
+        document.getElementById('wtStart').textContent = first + ' lbs';
+        document.getElementById('wtCurrent').textContent = last + ' lbs';
+
+        if (goalWeight) {
+          document.getElementById('wtGoal').textContent = goalWeight + ' lbs';
+          var totalToLose = first - goalWeight;
+          var lost = first - last;
+          if (totalToLose !== 0) {
+            var pctDone = Math.round((lost / totalToLose) * 100);
+            pctDone = Math.max(0, Math.min(pctDone, 999));
+            document.getElementById('wtChange').textContent = pctDone + '% there';
+            document.getElementById('wtChange').className = 'tracker-weight-value ' + (lost > 0 ? 'down' : lost < 0 ? 'up' : '');
+          } else {
+            document.getElementById('wtChange').textContent = 'At goal!';
+            document.getElementById('wtChange').className = 'tracker-weight-value down';
+          }
+        } else {
+          document.getElementById('wtGoal').textContent = '—';
+          var diff = last - first;
+          var sign = diff > 0 ? '+' : '';
+          document.getElementById('wtChange').textContent = sign + diff.toFixed(1) + ' lbs';
+          document.getElementById('wtChange').className = 'tracker-weight-value ' + (diff < 0 ? 'down' : diff > 0 ? 'up' : '');
+        }
+
+        // Draw chart
+        var ctx = canvas.getContext('2d');
+        var dpr = window.devicePixelRatio || 1;
+        var rect = canvas.parentElement.getBoundingClientRect();
+        canvas.width = rect.width * dpr;
+        canvas.height = 200 * dpr;
+        canvas.style.width = rect.width + 'px';
+        canvas.style.height = '200px';
+        ctx.scale(dpr, dpr);
+
+        var W = rect.width;
+        var H = 200;
+        var pad = { top: 20, right: 16, bottom: 30, left: 44 };
+        var cW = W - pad.left - pad.right;
+        var cH = H - pad.top - pad.bottom;
+
+        var weights = logs.map(function(l) { return l.weight; });
+        var allVals = weights.slice();
+        if (goalWeight) allVals.push(goalWeight);
+        var minW = Math.min.apply(null, allVals) - 3;
+        var maxW = Math.max.apply(null, allVals) + 3;
+        if (maxW === minW) { maxW += 5; minW -= 5; }
+
+        ctx.clearRect(0, 0, W, H);
+
+        // Grid lines
+        ctx.strokeStyle = '#f0f0f0';
+        ctx.lineWidth = 1;
+        var gridCount = 4;
+        for (var g = 0; g <= gridCount; g++) {
+          var gy = pad.top + (cH / gridCount) * g;
+          ctx.beginPath(); ctx.moveTo(pad.left, gy); ctx.lineTo(W - pad.right, gy); ctx.stroke();
+          var gVal = maxW - ((maxW - minW) / gridCount) * g;
+          ctx.fillStyle = '#bbb';
+          ctx.font = '11px League Spartan, sans-serif';
+          ctx.textAlign = 'right';
+          ctx.fillText(Math.round(gVal), pad.left - 8, gy + 4);
+        }
+
+        // Goal weight dashed line
+        if (goalWeight && goalWeight >= minW && goalWeight <= maxW) {
+          var goalY = pad.top + cH - ((goalWeight - minW) / (maxW - minW)) * cH;
+          ctx.setLineDash([6, 4]);
+          ctx.strokeStyle = '#f59e0b';
+          ctx.lineWidth = 2;
+          ctx.beginPath(); ctx.moveTo(pad.left, goalY); ctx.lineTo(W - pad.right, goalY); ctx.stroke();
+          ctx.setLineDash([]);
+          ctx.fillStyle = '#f59e0b';
+          ctx.font = 'bold 11px League Spartan, sans-serif';
+          ctx.textAlign = 'left';
+          ctx.fillText('GOAL', W - pad.right - 32, goalY - 6);
+        }
+
+        // Data line
+        if (logs.length > 1) {
+          var points = [];
+          for (var i = 0; i < logs.length; i++) {
+            var x = pad.left + (i / (logs.length - 1)) * cW;
+            var y = pad.top + cH - ((logs[i].weight - minW) / (maxW - minW)) * cH;
+            points.push({ x: x, y: y });
+          }
+
+          // Gradient fill under line
+          var grad = ctx.createLinearGradient(0, pad.top, 0, H - pad.bottom);
+          grad.addColorStop(0, 'rgba(58, 123, 213, 0.15)');
+          grad.addColorStop(1, 'rgba(58, 123, 213, 0.01)');
+          ctx.fillStyle = grad;
+          ctx.beginPath();
+          ctx.moveTo(points[0].x, H - pad.bottom);
+          ctx.lineTo(points[0].x, points[0].y);
+          for (var i = 1; i < points.length; i++) {
+            ctx.lineTo(points[i].x, points[i].y);
+          }
+          ctx.lineTo(points[points.length-1].x, H - pad.bottom);
+          ctx.closePath();
+          ctx.fill();
+
+          // Line
+          ctx.strokeStyle = 'var(--blue, #3a7bd5)';
+          ctx.lineWidth = 2.5;
+          ctx.lineJoin = 'round';
+          ctx.beginPath();
+          ctx.moveTo(points[0].x, points[0].y);
+          for (var i = 1; i < points.length; i++) {
+            ctx.lineTo(points[i].x, points[i].y);
+          }
+          ctx.stroke();
+
+          // Dots
+          points.forEach(function(p, idx) {
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, 4, 0, Math.PI * 2);
+            ctx.fillStyle = idx === points.length - 1 ? '#3a7bd5' : '#fff';
+            ctx.fill();
+            ctx.strokeStyle = '#3a7bd5';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+          });
+
+          // X-axis date labels (first and last)
+          ctx.fillStyle = '#bbb';
+          ctx.font = '10px Open Sans, sans-serif';
+          ctx.textAlign = 'center';
+          var firstDate = new Date(logs[0].date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+          var lastDate = new Date(logs[logs.length-1].date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+          ctx.fillText(firstDate, points[0].x, H - 8);
+          ctx.fillText(lastDate, points[points.length-1].x, H - 8);
+        } else {
+          // Single point
+          var x = pad.left + cW / 2;
+          var y = pad.top + cH / 2;
+          ctx.beginPath();
+          ctx.arc(x, y, 6, 0, Math.PI * 2);
+          ctx.fillStyle = '#3a7bd5';
+          ctx.fill();
+          ctx.fillStyle = '#666';
+          ctx.font = '12px Open Sans, sans-serif';
+          ctx.textAlign = 'center';
+          ctx.fillText(logs[0].weight + ' lbs', x, y - 14);
+        }
+      }
+
+      /* ── AI Weight Insight ── */
+      function renderInsight() {
+        var panel = document.getElementById('aiInsight');
+        var logs = entries.filter(function(e) { return e.type === 'log' && e.weight; });
+        var goalWeight = profile && profile.goalWeight;
+        var goalDate = profile && profile.goalDate;
+
+        if (logs.length < 2 || !goalWeight) {
+          panel.style.display = 'none';
+          return;
+        }
+
+        panel.style.display = '';
+        var first = logs[0];
+        var last = logs[logs.length - 1];
+        var startW = first.weight;
+        var currentW = last.weight;
+        var totalChange = currentW - startW;
+        var daysBetween = Math.max(1, Math.round((new Date(last.date) - new Date(first.date)) / 86400000));
+        var weeklyRate = (totalChange / daysBetween) * 7;
+        var toGo = currentW - goalWeight;
+        var losing = goalWeight < startW;
+        var direction = losing ? 'lose' : 'gain';
+
+        var html = '<div class="tracker-ai-header"><i class="fas fa-robot"></i> AI Coach Insight</div>';
+
+        // If they have a target date
+        if (goalDate) {
+          var targetDate = new Date(goalDate + 'T00:00:00');
+          var now = new Date(); now.setHours(0,0,0,0);
+          var daysLeft = Math.round((targetDate - now) / 86400000);
+          var weeksLeft = daysLeft / 7;
+          var targetDateStr = targetDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+
+          if (daysLeft <= 0) {
+            // Past the deadline
+            if ((losing && currentW <= goalWeight) || (!losing && currentW >= goalWeight)) {
+              html += '<div class="tracker-ai-status on-track"><i class="fas fa-trophy"></i> You hit your goal! Incredible work!</div>';
+              html += '<div class="tracker-ai-body">You reached <strong>' + goalWeight + ' lbs</strong> by your target date. Time to set a new goal and keep the momentum going!</div>';
+            } else {
+              html += '<div class="tracker-ai-status behind"><i class="fas fa-clock"></i> Your target date has passed</div>';
+              html += '<div class="tracker-ai-body">You\'re at <strong>' + currentW + ' lbs</strong> — still ' + Math.abs(toGo).toFixed(1) + ' lbs from your ' + goalWeight + ' lb goal. Don\'t stress — set a new target date and keep going. Progress isn\'t always linear!</div>';
+            }
+          } else if ((losing && currentW <= goalWeight) || (!losing && currentW >= goalWeight)) {
+            // Already hit the goal
+            html += '<div class="tracker-ai-status on-track"><i class="fas fa-star"></i> Goal reached!</div>';
+            html += '<div class="tracker-ai-body">You\'re already at <strong>' + currentW + ' lbs</strong> — you hit your ' + goalWeight + ' lb goal with <strong>' + daysLeft + ' days to spare</strong>! Amazing consistency.</div>';
+          } else {
+            // Still working toward it
+            var absToGo = Math.abs(toGo);
+            var absNeededPerWeek = absToGo / Math.max(weeksLeft, 0.1);
+            var absWeeklyRate = Math.abs(weeklyRate);
+            var movingRight = losing ? (weeklyRate < -0.01) : (weeklyRate > 0.01);
+            var onTrack = movingRight && (absWeeklyRate >= absNeededPerWeek * 0.85);
+
+            // Project finish date at current pace
+            var projectedWeeks = absWeeklyRate > 0.05 ? (absToGo / absWeeklyRate) : null;
+            var projectedDate = projectedWeeks ? new Date(Date.now() + projectedWeeks * 7 * 86400000) : null;
+            var projectedStr = projectedDate ? projectedDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : null;
+
+            // How far behind (percentage)
+            var paceGap = absNeededPerWeek > 0 ? ((absNeededPerWeek - absWeeklyRate) / absNeededPerWeek * 100) : 0;
+
+            if (onTrack) {
+              html += '<div class="tracker-ai-status on-track"><i class="fas fa-check-circle"></i> You\'re on track!</div>';
+              html += '<div class="tracker-ai-body">You\'re ' + (losing ? 'losing' : 'gaining') + ' <strong>' + absWeeklyRate.toFixed(1) + ' lbs/week</strong> — you need <strong>' + absNeededPerWeek.toFixed(1) + ' lbs/week</strong> to hit ' + goalWeight + ' lbs by ' + targetDateStr + '.';
+              if (projectedStr) html += ' At this pace, you\'re projected to reach your goal by <strong>' + projectedStr + '</strong>.';
+              html += '</div>';
+              html += '<div class="tracker-ai-tips">';
+              html += '<div class="tracker-ai-tip-header"><i class="fas fa-lightbulb"></i> Keep it going:</div>';
+              if (losing) {
+                html += '<div class="tracker-ai-tip"><i class="fas fa-dumbbell"></i> Keep hitting your ' + ((profile && profile.weeklyGoal) || 4) + ' classes/week — consistency is everything</div>';
+                html += '<div class="tracker-ai-tip"><i class="fas fa-utensils"></i> Stay focused on protein-rich meals with veggies at every plate</div>';
+              } else {
+                html += '<div class="tracker-ai-tip"><i class="fas fa-dumbbell"></i> Keep showing up to your ' + ((profile && profile.weeklyGoal) || 4) + ' classes/week</div>';
+                html += '<div class="tracker-ai-tip"><i class="fas fa-utensils"></i> Keep fueling with calorie-dense, nutrient-rich meals</div>';
+              }
+              html += '</div>';
+            } else {
+              // Determine severity
+              var wrongDirection = losing ? (weeklyRate > 0.01) : (weeklyRate < -0.01);
+              var stalled = Math.abs(weeklyRate) < 0.05;
+
+              if (wrongDirection) {
+                html += '<div class="tracker-ai-status behind"><i class="fas fa-exclamation-circle"></i> Heading the wrong direction</div>';
+                html += '<div class="tracker-ai-body">You\'re currently <strong>' + (losing ? 'gaining' : 'losing') + ' ' + absWeeklyRate.toFixed(1) + ' lbs/week</strong> — you need to be ' + (losing ? 'losing' : 'gaining') + ' <strong>' + absNeededPerWeek.toFixed(1) + ' lbs/week</strong> to reach ' + goalWeight + ' lbs by ' + targetDateStr + '.</div>';
+              } else if (stalled) {
+                html += '<div class="tracker-ai-status behind"><i class="fas fa-pause-circle"></i> Progress has stalled</div>';
+                html += '<div class="tracker-ai-body">Your weight has been flat recently. To reach <strong>' + goalWeight + ' lbs</strong> by ' + targetDateStr + ', you need to ' + direction + ' about <strong>' + absNeededPerWeek.toFixed(1) + ' lbs/week</strong>.</div>';
+              } else {
+                html += '<div class="tracker-ai-status behind"><i class="fas fa-exclamation-triangle"></i> Behind pace</div>';
+                html += '<div class="tracker-ai-body">You\'re ' + (losing ? 'losing' : 'gaining') + ' <strong>' + absWeeklyRate.toFixed(1) + ' lbs/week</strong> but need <strong>' + absNeededPerWeek.toFixed(1) + ' lbs/week</strong> to hit your goal by ' + targetDateStr + '.';
+                if (projectedStr) html += ' At your current pace, you\'d reach ' + goalWeight + ' lbs by <strong>' + projectedStr + '</strong>.';
+                html += '</div>';
+              }
+
+              // Specific tips based on situation
+              html += '<div class="tracker-ai-tips">';
+              html += '<div class="tracker-ai-tip-header"><i class="fas fa-lightbulb"></i> Action plan:</div>';
+              if (losing) {
+                if (wrongDirection || stalled) {
+                  html += '<div class="tracker-ai-tip"><i class="fas fa-utensils"></i> Track everything you eat for the next 7 days — hidden calories add up fast</div>';
+                  html += '<div class="tracker-ai-tip"><i class="fas fa-ban"></i> Cut liquid calories: sodas, juices, alcohol, fancy coffees</div>';
+                }
+                var waterOz = Math.round(currentW / 2);
+                html += '<div class="tracker-ai-tip"><i class="fas fa-droplet"></i> Drink at least <strong>' + waterOz + ' oz</strong> of water daily (half your bodyweight)</div>';
+                html += '<div class="tracker-ai-tip"><i class="fas fa-drumstick-bite"></i> Aim for <strong>' + Math.round(currentW * 0.8) + '-' + Math.round(currentW) + 'g protein</strong> per day to preserve muscle while losing fat</div>';
+                html += '<div class="tracker-ai-tip"><i class="fas fa-dumbbell"></i> Hit at least <strong>' + ((profile && profile.weeklyGoal) || 4) + ' classes this week</strong> — even on days you don\'t feel like it</div>';
+                html += '<div class="tracker-ai-tip"><i class="fas fa-moon"></i> Get 7-9 hours of sleep — poor sleep increases hunger hormones by up to 30%</div>';
+                if (wrongDirection) {
+                  html += '<div class="tracker-ai-tip"><i class="fas fa-calendar-check"></i> Meal prep on Sunday — people who prep meals are 3x more likely to stay on track</div>';
+                }
+              } else {
+                if (wrongDirection || stalled) {
+                  html += '<div class="tracker-ai-tip"><i class="fas fa-utensils"></i> You may not be eating enough — add 300-500 calories/day to your current intake</div>';
+                }
+                html += '<div class="tracker-ai-tip"><i class="fas fa-drumstick-bite"></i> Aim for <strong>' + Math.round(currentW * 1) + '-' + Math.round(currentW * 1.2) + 'g protein</strong> per day to build lean mass</div>';
+                html += '<div class="tracker-ai-tip"><i class="fas fa-bread-slice"></i> Add calorie-dense foods: nuts, avocados, olive oil, rice, and whole milk</div>';
+                html += '<div class="tracker-ai-tip"><i class="fas fa-dumbbell"></i> Prioritize heavy compound lifts — squats, deadlifts, presses</div>';
+                html += '<div class="tracker-ai-tip"><i class="fas fa-clock"></i> Eat every 3-4 hours — don\'t skip meals</div>';
+              }
+              html += '</div>';
+            }
+          }
+        } else {
+          // No target date — just show current trend
+          var absWeekly = Math.abs(weeklyRate).toFixed(1);
+          var dirWord = weeklyRate < 0 ? 'losing' : weeklyRate > 0 ? 'gaining' : 'maintaining';
+          html += '<div class="tracker-ai-status neutral"><i class="fas fa-chart-line"></i> Current Trend</div>';
+          html += '<div class="tracker-ai-body">You\'re ' + dirWord + ' about <strong>' + absWeekly + ' lbs/week</strong>. ';
+          if (Math.abs(toGo) > 0.5) {
+            var weeksNeeded = Math.abs(toGo) / Math.max(Math.abs(weeklyRate), 0.1);
+            html += 'At this rate, you\'ll reach your goal in roughly <strong>' + Math.round(weeksNeeded) + ' weeks</strong>. Set a target date with the <em>Set Goal</em> button for personalized coaching.</div>';
+          } else {
+            html += 'You\'re very close to your goal!</div>';
+          }
+        }
+
+        // Weekly Mood Summary from check-in notes
+        var weekMoodHtml = buildMoodSummary();
+        if (weekMoodHtml) html += weekMoodHtml;
+
+        panel.innerHTML = html;
+      }
+
+      function buildMoodSummary() {
+        var now = new Date();
+        var weekAgo = new Date(now.getTime() - 7 * 86400000);
+        var weekNotes = [];
+        for (var i = 0; i < entries.length; i++) {
+          var e = entries[i];
+          if (e.type === 'checkin' && e.notes && new Date(e.date) >= weekAgo) {
+            weekNotes.push(e.notes.toLowerCase());
+          }
+        }
+        if (weekNotes.length === 0) return '';
+
+        // Keyword categories
+        var moods = {
+          tired: { words: ['tired', 'exhausted', 'fatigued', 'drained', 'sleepy', 'low energy'], count: 0 },
+          sore: { words: ['sore', 'aching', 'tight', 'stiff', 'pain'], count: 0 },
+          stressed: { words: ['stressed', 'anxious', 'overwhelmed', 'worried', 'tense'], count: 0 },
+          great: { words: ['great', 'amazing', 'awesome', 'fantastic', 'excellent', 'strong', 'powerful', 'energized', 'motivated', 'pumped', 'good', 'happy'], count: 0 },
+          sick: { words: ['sick', 'ill', 'nauseous', 'headache', 'fever', 'cold'], count: 0 }
+        };
+
+        var allText = weekNotes.join(' ');
+        for (var key in moods) {
+          for (var w = 0; w < moods[key].words.length; w++) {
+            if (allText.indexOf(moods[key].words[w]) !== -1) {
+              moods[key].count++;
+            }
+          }
+        }
+
+        var html = '<div class="tracker-ai-mood">';
+        html += '<div class="tracker-ai-mood-header"><i class="fas fa-heart-pulse"></i> Weekly Mood Check (' + weekNotes.length + ' note' + (weekNotes.length > 1 ? 's' : '') + ')</div>';
+        html += '<div class="tracker-ai-mood-body">';
+
+        var summaryParts = [];
+        var advice = [];
+
+        if (moods.great.count > 0) {
+          summaryParts.push('feeling <strong>great</strong>');
+        }
+        if (moods.tired.count > 0) {
+          summaryParts.push('feeling <strong>tired</strong>');
+          advice.push('<i class="fas fa-moon"></i> You mentioned fatigue — aim for 7-9 hours of sleep and check your hydration');
+        }
+        if (moods.sore.count > 0) {
+          summaryParts.push('feeling <strong>sore</strong>');
+          advice.push('<i class="fas fa-spa"></i> Soreness detected — prioritize stretching, foam rolling, and add a recovery day if needed');
+        }
+        if (moods.stressed.count > 0) {
+          summaryParts.push('feeling <strong>stressed</strong>');
+          advice.push('<i class="fas fa-brain"></i> Stress can stall progress — try a 10-minute walk, deep breathing, or journaling before bed');
+        }
+        if (moods.sick.count > 0) {
+          summaryParts.push('not feeling well');
+          advice.push('<i class="fas fa-pills"></i> Listen to your body — rest up, stay hydrated, and ease back in when you\'re ready');
+        }
+
+        if (summaryParts.length === 0) {
+          html += 'You logged ' + weekNotes.length + ' mood note' + (weekNotes.length > 1 ? 's' : '') + ' this week. Keep noting how you feel — it helps the AI give better advice!';
+        } else {
+          html += 'This week you mentioned ' + summaryParts.join(', ') + '. ';
+          if (moods.great.count > 0 && advice.length === 0) {
+            html += 'You\'re in a great headspace — ride that momentum and keep pushing!';
+          } else if (moods.great.count > 0 && advice.length > 0) {
+            html += 'Mostly positive, but here\'s what to watch:';
+          }
+        }
+        html += '</div>';
+
+        if (advice.length > 0) {
+          html += '<div class="tracker-ai-tips" style="margin-top:8px;">';
+          for (var a = 0; a < advice.length; a++) {
+            html += '<div class="tracker-ai-tip">' + advice[a] + '</div>';
+          }
+          html += '</div>';
+        }
+
+        html += '</div>';
+        return html;
+      }
+
+      window.logCheckin = function() {
+        document.getElementById('checkinWeight').value = '';
+        document.getElementById('checkinNotes').value = '';
+        document.getElementById('checkinOverlay').style.display = 'flex';
+        document.getElementById('checkinWeight').focus();
+      };
+
+      window.closeCheckinPopup = function() {
+        document.getElementById('checkinOverlay').style.display = 'none';
+      };
+
+      window.submitCheckin = function() {
+        var w = parseFloat(document.getElementById('checkinWeight').value);
+        if (!w || w < 50 || w > 500) {
+          document.getElementById('checkinWeight').focus();
+          return;
+        }
+        var notes = document.getElementById('checkinNotes').value.trim() || null;
+        var now = new Date();
+        // Check-in entry with weight and optional notes
+        var checkinEntry = { type: 'checkin', date: now.toISOString(), weight: w, notes: notes };
+        entries.push(checkinEntry);
+        // Also add a weight log so the chart picks it up
+        var logEntry = { type: 'log', date: now.toISOString(), weight: w };
+        entries.push(logEntry);
+        entries.sort(function(a, b) { return new Date(a.date) - new Date(b.date); });
+        saveData();
+        document.getElementById('checkinOverlay').style.display = 'none';
+        renderAll();
+      };
+
+      window.changeGoal = function() {
+        // Deprecated — use toggleGoalEditor
+        toggleGoalEditor();
+      };
+
+      window.toggleGoalEditor = function() {
+        var ed = document.getElementById('goalEditor');
+        var showing = ed.style.display !== 'none';
+        ed.style.display = showing ? 'none' : '';
+        if (!showing) {
+          document.getElementById('goalEditorSelect').value = (profile && profile.weeklyGoal) || 4;
+        }
+      };
+
+      window.saveGoal = function() {
+        var val = parseInt(document.getElementById('goalEditorSelect').value);
+        if (val < 1 || val > 7 || isNaN(val)) return;
+        profile.weeklyGoal = val;
+        saveData();
+        document.getElementById('trackerGoalDisplay').textContent = val;
+        document.getElementById('goalEditor').style.display = 'none';
+        renderAll();
+      };
+
+      window.toggleGoalWeightEditor = function() {
+        var ed = document.getElementById('goalWeightEditor');
+        var showing = ed.style.display !== 'none';
+        ed.style.display = showing ? 'none' : '';
+        if (!showing) {
+          document.getElementById('goalWeightInput').value = (profile && profile.goalWeight) || '';
+          document.getElementById('goalDateInput').value = (profile && profile.goalDate) || '';
+          document.getElementById('goalWeightInput').focus();
+        }
+      };
+
+      window.saveGoalWeight = function() {
+        var val = parseFloat(document.getElementById('goalWeightInput').value);
+        if (isNaN(val) || val < 50 || val > 500) return;
+        profile.goalWeight = val;
+        var dateVal = document.getElementById('goalDateInput').value;
+        profile.goalDate = dateVal || null;
+        saveData();
+        document.getElementById('goalWeightEditor').style.display = 'none';
+        renderAll();
+      };
+
+      window.editGoalWeight = function() {
+        toggleGoalWeightEditor();
+      };
+
+      /* ── Delete last weight entry ── */
+      window.deleteLastWeight = function() {
+        for (var i = entries.length - 1; i >= 0; i--) {
+          if (entries[i].type === 'log') {
+            entries.splice(i, 1);
+            saveData();
+            renderAll();
+            return;
+          }
+        }
+      };
+
+      /* ── Member Info ── */
+      function renderMemberInfo() {
+        if (!profile) return;
+
+        // Member since — use first entry date or profile creation
+        var firstEntryDate = entries.length > 0 ? new Date(entries[0].date) : new Date();
+        var sinceText = firstEntryDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+        var daysSince = Math.floor((new Date() - firstEntryDate) / 86400000);
+        var sinceStr = 'Tracking since ' + sinceText;
+        if (daysSince > 0) sinceStr += ' (' + daysSince + ' day' + (daysSince !== 1 ? 's' : '') + ')';
+        document.getElementById('memberSince').textContent = sinceStr;
+
+        // Details
+        var html = '<div class="tracker-member-detail"><strong>Name:</strong> ' + (profile.firstName || '') + ' ' + (profile.lastName || '') + '</div>';
+        html += '<div class="tracker-member-detail"><strong>Phone:</strong> ' + (profile.phone || '—') + '</div>';
+        html += '<div class="tracker-member-detail"><strong>Weekly Goal:</strong> ' + ((profile.weeklyGoal || 4) + ' classes') + '</div>';
+        if (profile.goalWeight) html += '<div class="tracker-member-detail"><strong>Goal Weight:</strong> ' + profile.goalWeight + ' lbs</div>';
+        if (profile.goalDate) html += '<div class="tracker-member-detail"><strong>Target Date:</strong> ' + new Date(profile.goalDate + 'T00:00:00').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) + '</div>';
+        document.getElementById('memberDetails').innerHTML = html;
+      }
+
+      window.toggleEditProfile = function() {
+        var form = document.getElementById('editProfileForm');
+        var showing = form.style.display !== 'none';
+        form.style.display = showing ? 'none' : '';
+        if (!showing) {
+          document.getElementById('epFirstName').value = profile.firstName || '';
+          document.getElementById('epLastName').value = profile.lastName || '';
+          document.getElementById('epPhone').value = profile.phone || '';
+        }
+      };
+
+      window.saveProfile = function() {
+        var fn = document.getElementById('epFirstName').value.trim();
+        var ln = document.getElementById('epLastName').value.trim();
+        var ph = document.getElementById('epPhone').value.trim();
+        if (!fn || !ln) return;
+        profile.firstName = fn;
+        profile.lastName = ln;
+        profile.phone = ph;
+        saveData();
+        document.getElementById('editProfileForm').style.display = 'none';
+
+        var h = new Date().getHours();
+        var greeting = h < 12 ? 'Good morning' : h < 17 ? 'Good afternoon' : 'Good evening';
+        document.getElementById('trackerWelcome').textContent = greeting + ', ' + profile.firstName + '!';
+        renderMemberInfo();
+      };
+
+
+      function fireConfetti() {
+        var canvas = document.getElementById('confettiCanvas');
+        var ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        var particles = [];
+        var colors = ['#f59e0b','#3b82f6','#ef4444','#16a34a','#8b5cf6','#ec4899','#f97316'];
+        for (var i = 0; i < 120; i++) {
+          particles.push({
+            x: window.innerWidth / 2 + (Math.random() - 0.5) * 200,
+            y: window.innerHeight / 2,
+            vx: (Math.random() - 0.5) * 16,
+            vy: Math.random() * -18 - 4,
+            w: Math.random() * 10 + 4,
+            h: Math.random() * 6 + 3,
+            color: colors[Math.floor(Math.random() * colors.length)],
+            rot: Math.random() * 360,
+            rotV: (Math.random() - 0.5) * 12,
+            life: 1
+          });
+        }
+        var frame = 0;
+        function animate() {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          var alive = false;
+          particles.forEach(function(p) {
+            if (p.life <= 0) return;
+            alive = true;
+            p.x += p.vx;
+            p.y += p.vy;
+            p.vy += 0.45;
+            p.vx *= 0.99;
+            p.rot += p.rotV;
+            p.life -= 0.012;
+            ctx.save();
+            ctx.translate(p.x, p.y);
+            ctx.rotate(p.rot * Math.PI / 180);
+            ctx.globalAlpha = Math.max(0, p.life);
+            ctx.fillStyle = p.color;
+            ctx.fillRect(-p.w/2, -p.h/2, p.w, p.h);
+            ctx.restore();
+          });
+          frame++;
+          if (alive && frame < 200) requestAnimationFrame(animate);
+          else ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+        animate();
+      }
+
+      // Re-render chart on resize
+      var resizeTimer;
+      window.addEventListener('resize', function() {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function() { renderWeightChart(); }, 150);
+      });
+    })();
+  </script>
+</body>
+</html>

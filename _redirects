@@ -1,0 +1,9 @@
+# Canonical URL redirects — prevent duplicate content
+# Cloudflare Pages automatically enforces HTTPS
+
+# Redirect /index.html to root (prevent duplicate homepage)
+/index.html / 301
+
+# Redirect removed classes page to group training
+/classes.html /group-training.html 301
+
