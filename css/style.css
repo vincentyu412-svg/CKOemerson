@@ -2226,6 +2226,28 @@ h3 { font-size: 1.5rem; }
   color: var(--blue);
 }
 
+.login-pricing {
+  display: inline-block;
+  margin-top: 32px;
+  padding: 14px 36px;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-decoration: none;
+  background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+  border-radius: 8px;
+  transition: var(--transition);
+}
+
+.login-pricing:hover {
+  background: linear-gradient(135deg, var(--blue-dark), #8B6D00);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 15px rgba(200, 160, 0, 0.4);
+}
+
 .login-toggle {
   margin-top: 20px;
   font-family: var(--font-body);
