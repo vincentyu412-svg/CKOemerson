@@ -13,12 +13,6 @@
     <changefreq>monthly</changefreq>
   </url>
   <url>
-    <loc>https://emersoncko.com/book.html</loc>
-    <lastmod>2026-04-07</lastmod>
-    <priority>0.8</priority>
-    <changefreq>monthly</changefreq>
-  </url>
-  <url>
     <loc>https://emersoncko.com/contact.html</loc>
     <lastmod>2026-04-07</lastmod>
     <priority>0.9</priority>
@@ -31,45 +25,15 @@
     <changefreq>monthly</changefreq>
   </url>
   <url>
-    <loc>https://emersoncko.com/members.html</loc>
-    <lastmod>2026-04-07</lastmod>
-    <priority>0.6</priority>
-    <changefreq>monthly</changefreq>
-  </url>
-  <url>
-    <loc>https://emersoncko.com/members-area.html</loc>
-    <lastmod>2026-04-07</lastmod>
-    <priority>0.5</priority>
-    <changefreq>monthly</changefreq>
-  </url>
-  <url>
     <loc>https://emersoncko.com/membership.html</loc>
     <lastmod>2026-04-07</lastmod>
     <priority>0.8</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
-    <loc>https://emersoncko.com/nutrition.html</loc>
-    <lastmod>2026-04-07</lastmod>
-    <priority>0.7</priority>
-    <changefreq>monthly</changefreq>
-  </url>
-  <url>
     <loc>https://emersoncko.com/personal-training.html</loc>
     <lastmod>2026-04-07</lastmod>
     <priority>0.8</priority>
-    <changefreq>monthly</changefreq>
-  </url>
-  <url>
-    <loc>https://emersoncko.com/schedule.html</loc>
-    <lastmod>2026-04-07</lastmod>
-    <priority>0.8</priority>
-    <changefreq>weekly</changefreq>
-  </url>
-  <url>
-    <loc>https://emersoncko.com/tracker.html</loc>
-    <lastmod>2026-04-07</lastmod>
-    <priority>0.5</priority>
     <changefreq>monthly</changefreq>
   </url>
 </urlset>
